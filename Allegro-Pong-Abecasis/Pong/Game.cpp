@@ -2,11 +2,13 @@
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_native_dialog.h"
+#include "allegro5/allegro_audio.h"
 
 int main(int argc, char **argv) {
 
 	ALLEGRO_DISPLAY *display = NULL;
-	ALLEGRO_BITMAP  *image = NULL;
+	ALLEGRO_BITMAP  *pla1Image = NULL;
+	ALLEGRO_BITMAP  *pla2Image = NULL;
 
 	if (!al_init()) {
 		al_show_native_message_box(display, "Error", "Error", "Failed to initialize allegro!",
@@ -28,22 +30,35 @@ int main(int argc, char **argv) {
 		return 0;
 	}
 
-	image = al_load_bitmap("image.jpg");
+	pla1Image = al_load_bitmap("pongBar.png");
+	pla2Image = al_load_bitmap("pongBar.png");
 
-	if (!image) {
+	if (!pla1Image) {
 		al_show_native_message_box(display, "Error", "Error", "Failed to load image!",
 			NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		al_destroy_display(display);
 		return 0;
 	}
+	if (!pla2Image) {
+		al_show_native_message_box(display, "Error", "Error", "Failed to load image2!",
+			NULL, ALLEGRO_MESSAGEBOX_ERROR);
+		al_destroy_display(display);
+		return 0;
+	}
 
-	al_draw_bitmap(image, 25, 25, 0);
+	al_draw_bitmap(pla1Image, 100, 252, 0);
+	al_draw_bitmap(pla1Image, 700, 252, 0);
 
-	al_flip_display();
-	al_rest(5); // Time to close the Window.
+	int pla1Points = 0;
+	int pla2Points = 0;
 
-	al_destroy_display(display);
-	al_destroy_bitmap(image);
+	while (pla1Points < 6 || pla2Points < 6) 
+	{
+
+		al_flip_display();
+		al_destroy_display(display);
+		al_destroy_bitmap(pla1Image);
+	}
 
 	return 0;
 }
